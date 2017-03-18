@@ -1,5 +1,5 @@
 # jpp
-J Plus Plus
+J Plus Plus.  Licensed GPL3.  Permission for jsoftware to include in J distribution.
 
 
 # 'jpp'
@@ -45,3 +45,7 @@ tieA  will encode a string, if it is a name of a verb or modifier, or evaluates 
 ar and aar are the 2 atomic representation adverbs.  
 tiD tieD tieAD are double adverb versions of the above.  
 
+
+multi/double adverbs benefit over conjunction is parsing entire right (verb) phrase.  This makes writting code cleaner and less parenthesy, but reading can be harder if the number of adberb parameters are unknown.  A clean alternative is to use \` as a "super delimiter" for phrase grouping.  "(" signals end of adverb binding.
+
+-@:+/ is (-@:+)/ when often the intent is -@:(+/).  with "at" double adverb, + - at/ is first.  +/ - at is second.
