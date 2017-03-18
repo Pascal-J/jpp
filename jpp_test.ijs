@@ -21,7 +21,7 @@ x + y
 
 pD timespacex (. test"0 i.1000
 
-C c =:: 1000000 1000
+C c =:: 100000 1000
 pD |: (bb Cloak.. every cutLF  0.:)  ((a: , ]) , ( 1.~ ; timex each@:] [ ".@0.~)"1 _) (a i. a` a i.b`b i. a`a e. b` b e. a`a +/@:e. b`a (e. i. 1:) b`~.a`~:a`/:a`/:~a   bb.
 b=: (<.-:#a)+ c ?. c [ a=: C ?. C ` intsr
 b=: (c?.#a){a [ a=: C ?@$ <:2^63 `  intbr
