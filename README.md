@@ -43,5 +43,5 @@ ti replaces `.  nouns get encoded as noun ars
 tie is similar but allows nesting gerunds.
 tieA  will encode a string, if it is a name of a verb or modifier, or evaluates to a modifer, as a modifier/name
 ar and aar are the 2 atomic representation adverbs.
-tiD tieD tieAD are double adverb versions of the above.
+tiD tieD tieAD are double adverb versions of the above. 
 
