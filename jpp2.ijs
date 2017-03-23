@@ -120,7 +120,7 @@ i =. x v"_ y
 x (( (({: i) +^:(0 > [) {. i) take ]) ,^:(0 < #@[) ((({: i) -~^:(0 > [) +/ i) }. ]) ,~^:(0 < #@[) [ u ((#y) (] #~ >) (+ *@] * i.)/ i) {  ])y
 )
 
-forfirstdrop  =: 2 : '(v take ]) ,~^:(0 < #@[) [ u v }. ]'
+forfirstdrop  =: 2 : '(v take ]) ,^:(0 < #@[) [ u v }. ]'
 forfirstlogm =: 2 : ' u  forfirst (n * 2 >:@>.@^. #@])'
 forlast =: 2 : '(-@(v"_) }. ]) ,^:(0 < #@[) [ u -@(v"_) take ]'
 
@@ -190,11 +190,14 @@ BRAILLECODES =: TAB cut every cutLF 0 : 0
 4.:	(4 : 0)
 0.	(0 {:: ])
 1.	(1 {:: ])
+2.	(2 {:: ])
+3.	(3 {:: ])
+4.	(4 {:: ])
 @..	'@' aar
 @:..	'@:' aar
 @...	'@.' aar
-C:	gg. cc::
-C::	gg. cc:
+C::	gg. cc::
+C:	gg. cc:
 T.	timespacex	 	quote 
 =..	 	=.	quote
 =::	 	=:	quote

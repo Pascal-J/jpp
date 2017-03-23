@@ -181,6 +181,7 @@ cp =: '()'&strbracket@fixparen each@:('`'&cut )
 gg =: 1 : '(''ti'' joinstring cp m) eval' 
 s2b =: 1 : 'm rplc '' `'''
 bb =: 1 :  'dltb each (''`''&cut) m'
+bs =: 1 :  'dltb each ('';''&cut) m'
 tr =: '`:6' Cloak
 unar =: '5!:0' Cloak
 Cat =: '@:' tieAD C
@@ -198,6 +199,7 @@ NB. dRS =: ((((((((`'')(((`'')(&(<&.:(,^:(0:``:)&6 :.(<@:((,'0') ,&< ])))@:[)))(
 NB. stripxtraP =: ] (1 { ]) tieD@.((3 = #) *. (a:,a:) -: {. , {:)  ]`$: @.(2 < L.) at each mRS&.cutAP ^:_  NB. needs mRS def wicked
 
 F =: '(G 3) (`:6)' aatrain
+H =: 'u v' daF
 dfltG =:  'if. -. u  isgerundA do. m =. u toG end. linearize n [^:((a: ar) -: ])"0 (#n) {.!.(a: ar) m' daF
 av =:  'if. 3 = 1 {:: u ncA do. u tiA (v toG) else. (m eval) (tiA (v toG)) end. ' daF
 

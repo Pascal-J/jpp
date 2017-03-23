@@ -28,3 +28,22 @@ b=: (c?.#a){a [ a=: C ?@$ <:2^63 `  intbr
 b=: (c?.#a){a [ a=: >,.~":each <"0 [C ?@$ <:2^63 ` char
 b=: 0.1+(c?.#a){a [ a=: 0.1+C ?@$ <:2^63  `    float
 )
+
+
+pD  + - (u ( u` 1... (u`) 1...
+
+
+leadswnamecolon =: _1 (~: {.)"1 '\A[[:alpha:]][[:alnum:]_]+:\Z' rxmatch 0.@:;:
+funcdict =:  ((] {.~ i.&':')each@:{. , }. ,~  (] dltb@}.~ >:@i.&':')each@:{.)each@:(] <;.1~  1 A  0},at leadswnamecolon every)@:cutLF ({. (, <) }.)every at
+locsuffix =: 2:: n , forlast 1 m locs
+FN =: 2 : '(m  locsuffix ''DICT'') =: funcdict 0 : 0'  NB. must be quoted to prevent multiline trigger.
+
+] testf  FN.. ML
+head asdf
+DOC: asdfasdf
+FN: +/ % #
+TEST:
+1
+2
+JUNK:
+)
