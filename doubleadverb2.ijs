@@ -208,3 +208,5 @@ NB.av =:  'ti (u tiA v)' daF
 Grun =: 4 : 'x tie y `:6'
 S =: 2 : ' ((s: cut m) ; v ar)'
 
+pow =: 1 : 'tr ''^:'' aar strinsert/`({. , ''^:'' aar,  ''ar''Cloak@:}.)@.( 2 < #)  m'
+if =: 1 : ' (}: m)@.(unar {: m)'
