@@ -66,22 +66,41 @@ NB.parenw2 =: [: ]`($:^:('(' e. ]) each) AltM parenw1
 parenw2 =: [: a:"_^:((1 {. a.) -: >)`($:^:('(' e. ]) each) AltM  parenw1
 
 gapsf2 =: (] , 0. - 2.)"1@:(] ,. 0 (, }:) >:@+/"1)
+gapsf4 =: ( ] ,"1 0 A  0 (, }:@:,) 2."1)@:((] , 0. - 3.)"1@:(] ,. 0 (, }:) ([: >:@+/ 2&{.)"1)) NB. func code 4, adds 
+NB.gapsf4 =: (] , 0. - 3.)"1@:(] ,. 0 (, }.) ([: >:@+/ 2&{.)"1)
 ifgapapnd0 =: _4 }. ,`(0 0 0 0 , ,)@.(0 < {:@[)/@:((,:0 0 0 0) ,~ gapsf2)
+ifgapapnd0 =: _4 }. ,`((0 0 0 0 #~ {:@[) , ,)@.(0 < {:@[)/@:((,:0 0 0 0) ,~ gapsf2)
 getfromf2 =: 4:: _4 (x <@:{~ (+ i.)/@(2&{.))\ y NB. x is original parsed string, y is f=2 fsm output that may have additional columns.
+fillgapf2 =: 1:: ] getfromf2_fsm_ ifgapapnd0_fsm_@:u
 
-parenwf2 =: ( tostatecodes_fsm_ parens_fsm_ ) ti ( fsmmakem '()' ) ti 2 fsm 1:: ] getfromf2 ifgapapnd0@:u
-parenwf2A =: [: ]`($:^:('(' e. ]) each) AltM  parenwf2  NB. unfortunate hard code of ( need mRS for single def.
+fsmmakes_z_ =: 1:: > +.@:". each cut every m bs
+NB. default sj is 3draw, 1d boxed rows of complex, or string to be cut on `or LF then on ;
+fsm_z_ =: ((> +.@:". each cut every (1j1 2j1;1j0 2j2;1j2 2j0 bs.`fsmmakem ''''   `0`0 _1 0 _1 gg. dfltG) (1:: '`s m f ij' =.  m if. (L. m) +. 2 = 3!:0 m do. m =. fsmmakem m end. if. 3 ~: #@$ s do. if. 1 = L.s do. s =.> +.@:". each cut every s else. if. LF e. s do. s =. cutLF s else. s =. s bb end. s =. tostatecodes toactioncodes fixunreferenced replpme  parsestate cut every s end. end. (f;s;m;ij)&;: 
+
+parenwf2 =: ( tostatecodes_fsm_ parens_fsm_ ) ti ( fsmmakem '()' ) ti 2 fsm fillgapf2  NB.1:: ] getfromf2 ifgapapnd0@:u
+parenw_z_ =: parenwf2A =: [: ]`($:^:('(' e. ]) each) AltM  parenwf2  NB. unfortunate hard code of ( need mRS for single def.
 parenw =: parenw2_fsm_@: (rplc&(')('; 41 0 40 {a.)) NB. could insert 50 or 100 nulls to make improbable collision.
 
+NB. COLS: other escape delim 
+escapes =:  tostatecodes toactioncodes fixunreferenced replpme  parsestate cut every@:cutLF 0.:
+s   wS escS sN 
+esc wS wS wS 
+w   wN escw sw 
+)
 
+escapes2 =:  tostatecodes toactioncodes fixunreferenced replpme  parsestate cut every@:cutLF 0.:
+s   wS escS sN 
+esc haltS wN wN 
+w   wN escN sw 
+)
 
+escapes3 =: tostatecodes toactioncodes fixunreferenced replpme  parsestate cut every@:cutLF 0.:
+s   wS escS 
+esc wS wS 
+w   wN escw  
+)
+esc_z_ =: 1::  ;@:(escapes3_fsm_ ti (fsmmakem_fsm_ {.m) ti 0  fsm^:(0 <#)) each@:( escapes2_fsm_ ti (fsmmakem_fsm_ m) ti 2  fsm fillgapf2_fsm_)
 
-cocurrent 'z'
-
-fsmmakes =: 1:: > +.@:". each cut every m bs
-NB. default sj is 3draw, 1d boxed rows of complex, or string to be cut on `or LF then on ;
-fsm =: ((> +.@:". each cut every (1j1 2j1;1j0 2j2;1j2 2j0 bs.`fsmmakem ''''   `0`0 _1 0 _1 gg. dfltG) (1:: '`s m f ij' =.  m if. (L. m) +. 2 = 3!:0 m do. m =. fsmmakem m end. if. 3 ~: #@$ s do. if. 1 = L.s do. s =.> +.@:". each cut every s else. if. LF e. s do. s =. cutLF s else. s =. s bb end. s =. tostatecodes toactioncodes fixunreferenced replpme  parsestate cut every s end. end. (f;s;m;ij)&;: 
-parenw =: parenwf2A
-
-
+assert (0$0);'\a';'bd\+';(,'f');(0$0);(0$0);'gfaa+d';(0$0);(0$0);'+ggg' -:  ;@:(' escapes3_fsm_ ` fsmmakem_fsm_ ''\'' ` 0' gg fsm^:(0 <#)) each ' escapes2_fsm_ ` fsmmakem_fsm_ ''\+'' ` 2' gg fsm fillgapf2_fsm_ '+\\a+bd\\\++f+++gfaa\+d+++\+ggg'
+assert (0$0);'\a';'bd\+';(,'f');(0$0);(0$0);'gfaa+d';(0$0);(0$0);'+ggg' -:  '\+' esc '+\\a+bd\\\++f+++gfaa\+d+++\+ggg'
 assert ((<0$0),(<'sdfsdf'),(<0$0),(<(<0$0),(<(<,'s'),(<(0$0);(,'d');,'f'),<,'s'),(<' dfgdfg'),<' safd dfg'),<'sdf') -: parenw '(sdfsdf)((s((d)f)s) dfgdfg( safd dfg))sdf'

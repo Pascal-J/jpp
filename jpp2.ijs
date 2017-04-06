@@ -193,8 +193,9 @@ BRAILLECODES =: TAB cut every cutLF 0 : 0
 2.	(2 {:: ])
 3.	(3 {:: ])
 4.	(4 {:: ])
-F.	gg. if
-P.	gg. pow
+_1.	(_1 {:: ])
+@..	gg. if
+^::	gg. pow
 C::	gg. cc::
 C:	gg. cc:
 T.	timespacex	 	quote 
