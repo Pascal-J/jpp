@@ -49,3 +49,12 @@ tiD tieD tieAD are double adverb versions of the above.
 multi/double adverbs benefit over conjunction is parsing entire right (verb) phrase.  This makes writting code cleaner and less parenthesy, but reading can be harder if the number of adberb parameters are unknown.  A clean alternative is to use \` as a "super delimiter" for phrase grouping.  "(" signals end of adverb binding.
 
 -@:+/ is (-@:+)/ when often the intent is -@:(+/).  with "at" double adverb, + - at/ is first.  +/ - at is second.
+
+# issues 
+
+F11 (run multiline) will run several multiline definitions above the current one if there is no blank/intervening line between multiline definitions.
+
+The coins demo in showcase uses "fancy multiline definitions".  either run "unloadjpp 1" prior to running demo, or change demo/wd/coins.ijs to have 
+
+ML_z_ =: 0
+and then all sections created with getnum '' should be changed to "getnum ML".
