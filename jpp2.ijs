@@ -1,4 +1,4 @@
-require 'debug/dissect'  NB. convenience
+NB. require 'debug/dissect'  NB. convenience
 
 Note 'jpp'
 extends J with auto parenthesizing, and quoting for custom parsers.  User defined primitives.
@@ -57,6 +57,7 @@ ML_z_ =: 0
 
 NoteV_z_ =: 1 : '(0 (0 :)) label_. 0 (m :)'
 nummultiline =: 3 NoteV 
+ This is a double multiline definition.  top comment section followed by a (3 :) def.
  nummultiline returns count of expected terminating parentheses to a line.
  define, : 0 , ML, ML_z_, Note, NoteV are scanned, but combinations are excluded from double counting: ML : 0, ML define
  though the combinations are bad form, ML intended to be used only as 0 for n in m : n
@@ -139,7 +140,12 @@ o
 )
 amendwhere =: 'v (] u@:{~ I.@[)`(I.@[)`]} ]' daF
 scriptdepthmarks =: (-.@] >. (0 2&E.}:@:+. 0 1&E.)@:(0&,))@:(+/\ + _1&=)@:scriptdepth
+NB. scriptdepthmarks =: (-.@] >. (0 2&E.}:@:+. 0 1&E.)@:(0&,))@:(+/\)@:scriptdepth
+scriptdepthmarks =: (-. >.  2 ((0 = [) *. 0 < ])/\ 0&,)@:(+/\ + _1&=)@:scriptdepth
+scriptdepthmarks2 =: (-. >.  2 ((0 = [) *. 0 < ])/\ 0&,)@:(+/\ )@:scriptdepth
+
 jppf =: jpp each scriptdepthmarks amendwhere LF&joinstring at@:cutCRLF
+jppf2 =: jpp each scriptdepthmarks amendwhere LF&joinstring at@:cutCRLF
 NB.jppf =: jpp each (-.@] >. 0 }:@:, 0 2&E. +. 0 1&E.)@:(+/\ + _1&=)@:scriptdepth amendwhere > at@:cutCRLF
 NB. y is a string containing parentheses, or (a string containing delimiters);(start,end delimiters)
 NB. x is [possibly a list of] indexes into y
@@ -320,7 +326,8 @@ NB.   NB. If a single value is selected, take the whole line; otherwise the sele
 )
 
 stripNB =:  }:^:('NB.' -: 3 {. _1 {:: ])&.;:
-jpp =: quoteloopO@:quoteloopC@:quoteloopW@:quoteloopB@:fixparen@:parenloopC@:parenloopW@:parenloopB@:stripNB^:('' -.@-: dltb@])
+jpp =: quoteloopO@:quoteloopC@:quoteloopW@:quoteloopB@:fixparen@:parenloopC@:parenloopW@:parenloopB@:stripNB^:(  '' ( -.@-:) dltb@])
+jpp =: quoteloopO@:quoteloopC@:quoteloopW@:quoteloopB@:fixparen@:parenloopC@:parenloopW@:parenloopB@:stripNB^:(  '' (((,')') -: ])  -.@+. -:)  dltb@])
 ee_z_ =: 1 : '(jpp m) eval'
 es_z_ =: 1 : '0!:101 jpp m'
 esf_z_ =: 1 : '0!:101 jppf m'
@@ -362,7 +369,9 @@ for_fl. fls do.
   if. -. fexist fl do.
     smoutput 'not found: ',>fl
   end.
-  fl2n =. 'JPPTEMP' , leaf forlast 1&. ('/'&cut) > fl
+  NB. weird bug in plot demo
+  NB.fl2n =. 'JPPTEMP' , leaf forlast 1&. ('/'&cut) , > fl
+  fl2n =. '/' joinstring 'JPPTEMP' , leaf forlast 1  ('/'&cut)  > fl
   fl2n fwrite~ jppf fread >  fl
  NB. if. IFQT do. wd 'msgs' end.
   fn fl2n
@@ -372,3 +381,4 @@ end.
 empty''
 )
 
+unloadjpp =: 3 : 'if. y = 0 do. load_z_ =: loadjpp_z_ f. else. load_z_ =: loadj_z_ f. end. y'
